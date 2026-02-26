@@ -18,3 +18,16 @@ def monthly_revenue(df):
     df = df.copy()
     df["Month"] = df["Order Date"].dt.to_period("M")
     return df.groupby("Month")["Amount"].sum().sort_index()
+
+
+def profit_by_category(df):
+    return df.groupby("Category")["Profit"].sum().sort_values(ascending=False)
+
+
+def top_customers(df, n=10):
+    return (
+        df.groupby("CustomerName")["Amount"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(n)
+    )
